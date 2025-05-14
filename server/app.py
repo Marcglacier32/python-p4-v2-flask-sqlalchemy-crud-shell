@@ -1,11 +1,10 @@
-# server/app.py
-
 from flask import Flask
 from flask_migrate import Migrate
 
-from models import db
+from server.models import db  # This assumes models.py is inside the server folder
+from server.models import Pet  # Same here
 
-# create a Flask application instance 
+# create a Flask application instance
 app = Flask(__name__)
 
 # configure the database connection to the local file app.db
@@ -20,6 +19,9 @@ migrate = Migrate(app, db)
 # initialize the Flask application to use the database
 db.init_app(app)
 
+@app.route('/')
+def index():
+    return '<h1>Welcome to the Pet API!</h1>'
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
